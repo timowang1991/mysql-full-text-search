@@ -2,6 +2,8 @@
 
 * See original post from digital ocean (https://www.digitalocean.com/community/tutorials/how-to-improve-database-searches-with-full-text-search-in-mysql-5-6-on-ubuntu-16-04)
 
+* See mysql [12.10.2 Boolean Full-Text Searches](https://dev.mysql.com/doc/refman/8.0/en/fulltext-boolean.html)
+
 <br/>
 
 # Experimental results
@@ -151,4 +153,12 @@ content: Exploring tracks and trails was second most popular, followed by visiti
 
 mysql> SELECT * FROM news WHERE MATCH (title,content,author) AGAINST ('travel' IN NATURAL LANGUAGE MODE)\G
 Empty set (0.00 sec)
+
+mysql> SELECT * FROM news WHERE MATCH (title,content,author) AGAINST ('cur*' IN BOOLEAN MODE);
++----+----------------------------------------+------------------------------------------------------------------------------------------------------------------------------+--------+
+| id | title                                  | content                                                                                                                      | author |
++----+----------------------------------------+------------------------------------------------------------------------------------------------------------------------------+--------+
+|  1 | Pacific Northwest high-speed rail line | Currently there are only a few options for traveling the 140 miles between Seattle and Vancouver and none of them are ideal. | Greg   |
++----+----------------------------------------+------------------------------------------------------------------------------------------------------------------------------+--------+
+1 row in set (0.01 sec)
 ```
